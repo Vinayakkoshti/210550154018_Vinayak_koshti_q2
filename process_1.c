@@ -12,11 +12,36 @@ send the strings starting with letter 'm' to process P2 using share memory.
 #include<unistd.h>
 
 #include<string.h>
+
+
 char *count;
 unsigned char buff[64]="mahesh\n";
 
 int main()
 {
+    char ch ;
+    char buff[100];
+    char str[100];
+
+// getiing string from dictionary
+
+    FILE *fp;
+    fp =fopen("/usr/share/dict/american-english","r");
+   
+   while((ch=fgetc(fp))!=EOF)
+   {
+    fgets(buff,sizeof(buff),fp);
+    
+    if(buff[0] == 'm')
+    {
+        strcpy(str,buff);
+       
+    }
+   }
+    printf("str: %s\n",str);
+
+// sharing with share memory
+
     int shmd;
     int num;
     
@@ -25,7 +50,8 @@ int main()
 
     count=(char*)mmap(NULL,sizeof(buff),PROT_READ | PROT_WRITE,MAP_SHARED,shmd,0);
 
-    strcpy(count,buff);
+    strcpy(count,str);
 
     return 0;
+    
 }

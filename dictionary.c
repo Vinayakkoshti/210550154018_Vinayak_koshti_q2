@@ -9,13 +9,14 @@ int main()
     FILE *fp;
     fp =fopen("/usr/share/dict/american-english","r");
    
-   while(buff[0]!='m')
+   while((ch=fgetc(fp))!=EOF)
    {
     fgets(buff,sizeof(buff),fp);
-    if(buff[0]=='m')
+    
+    if(buff[0] == 'm')
     {
         strcpy(str,buff);
-        break;
+       
     }
    }
     printf("str: %s\n",str);
